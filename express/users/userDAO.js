@@ -15,6 +15,14 @@ const getUserById = (userId, done) => {
      return done(null, existed);
 }
 
+const updateUserDetails = (userId, userName, done) => {
+     let existed = users.find(u => u.userID === userId);
+     if (!existed)
+         return done('User Not Found');
+     existed.username = userName;
+     return done(null, 'Successfully updated user name');
+}
+
 // export functions to be used in other modules
-module.exports = {getUsers, getUserById};
+module.exports = {getUsers, getUserById, updateUserDetails};
 

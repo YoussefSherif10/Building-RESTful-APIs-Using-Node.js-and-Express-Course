@@ -34,4 +34,19 @@ routes.get('/:userId', (req, res) => {
     })
 })
 
+routes.put('/:userId', (req, res) => {
+    const userId = parseInt(req.params.userId);
+    const userName = req.body.username;
+
+    userController.updateUserDetails(userId, userName, (err, result) => {
+        try {
+            if (err)
+                return res.status(400).send(err)
+            return res.status(200).send({"status": "OK", data: result});
+        } catch (e) {
+            return res.status(500).send('Try again after some time');
+        }
+    })
+})
+
 module.exports = routes;

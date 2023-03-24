@@ -13,4 +13,8 @@ const getUserById = (userId, done) => {
     userDAO.getUserById(userId, done);
 }
 
-module.exports = {getUsers, getUserById};
+const updateUserDetails = (userId, userName, done) => {
+    userDAO.updateUserDetails(userId, userName, done);
+}
+
+module.exports = {getUsers, getUserById, updateUserDetails};

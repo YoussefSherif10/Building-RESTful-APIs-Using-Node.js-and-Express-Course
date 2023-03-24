@@ -3,6 +3,7 @@
  */
 
 const userService = require('./userService')
+const userDAO = require("./userDAO");
 
 const getUsers = (done) => {
     userService.getUsers(done);
@@ -12,4 +13,8 @@ const getUserById = (userId, done) => {
     userService.getUserById(userId, done);
 }
 
-module.exports = {getUsers, getUserById};
+const updateUserDetails = (userId, userName, done) => {
+    userService.updateUserDetails(userId, userName, done);
+}
+
+module.exports = {getUsers, getUserById, updateUserDetails};
