@@ -8,6 +8,13 @@ const getUsers = (done) => {
     return done(null, users);
 }
 
+const getUserById = (userId, done) => {
+     const existed = users.find(u => u.userID === userId);
+     if (!existed)
+         return done('user doesn\'t exist...!');
+     return done(null, existed);
+}
+
 // export functions to be used in other modules
-module.exports = {getUsers};
+module.exports = {getUsers, getUserById};
 

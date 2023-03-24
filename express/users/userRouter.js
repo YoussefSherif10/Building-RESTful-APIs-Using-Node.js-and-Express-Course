@@ -22,4 +22,16 @@ routes.get("/", (req, res) => {
     }
 });
 
+routes.get('/:userId', (req, res) => {
+    userController.getUserById(parseInt(req.params.userId), (error, result) => {
+        try {
+            if (error)
+                return res.status(404).send(error);
+            return res.status(200).send({"status": "OK", data: result});
+        } catch (error) {
+            return res.status(500).send('Try again after some time ');
+        }
+    })
+})
+
 module.exports = routes;
