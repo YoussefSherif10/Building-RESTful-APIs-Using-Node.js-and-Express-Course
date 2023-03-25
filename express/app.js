@@ -28,6 +28,9 @@ app.use(LoggerMiddleware);
 // parse the incoming payload
 app.use(express.json());
 
+// urlencoded parses the incoming request and is based on a "body parser"
+app.use(express.urlencoded())
+
 // the first router
 app.use('/api/users', userRouter);
 
