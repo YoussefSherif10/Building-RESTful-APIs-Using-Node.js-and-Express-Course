@@ -1,6 +1,7 @@
 const express = require('express')
 const app = express();
-//const userRouter = require('./users/index')
+const userRouter = require('./users/index')
+const verifyAUTH = require('./authentication/authMiddleware')
 const authRouter = require('./authentication/index')
 const config = require('./config')
 const morgan = require('morgan')
@@ -14,6 +15,7 @@ morgan.token('time', () => dateFormat.asString(dateFormat.ISO8601_FORMAT, new Da
 app.use(morgan('[:time] :method :url :status :response-time ms'));
 
 app.use('/auth', authRouter);
+app.use('/users', verifyAUTH, userRouter);
 
 app.listen(config.PORT, () => {
     console.log(`the server is listening at port ${config.PORT}`);

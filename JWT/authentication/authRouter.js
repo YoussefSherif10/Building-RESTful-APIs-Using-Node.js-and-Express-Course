@@ -19,8 +19,23 @@ const authController = require('./authController')
          })
 
      } catch (e) {
-         res.status(400).send({"ERROR": "Unexpected error try again"});
+         res.status(500).send({"ERROR": "Unexpected error try again"});
      }
  })
+
+router.post('/login', (req, res) => {
+    try {
+        const {email, password} = req.body;
+        if (!(email && password))
+            return res.status(400).send('required inputs are missing');
+        authController.loginUser({email, password}, (err, results) => {
+            if (err)
+                return res.status(400).send({"ERROR": "Invalid email or password"});
+            return res.status(200).send(results);
+        })
+    } catch (e) {
+        res.status(500).send({"ERROR": "Unexpected error try again"});
+    }
+})
 
 module.exports = router;

@@ -1,5 +1,5 @@
 const userService = require('../users/userService')
-//const authService = require('./authService')
+const authService = require('./authService')
 
 const registerUser = (userDetails, done) => {
      userService.findUser(userDetails.email, (err, found) => {
@@ -11,4 +11,23 @@ const registerUser = (userDetails, done) => {
      });
 }
 
-module.exports = {registerUser};
+const loginUser = (userDetails, done) => {
+    userService.findUser(userDetails.email, (err, found) => {
+        if (err)
+            return done(err)
+
+        if (found) {
+            const userVerified = authService.verifyUser(userDetails, found);
+            if (userVerified) {
+                const jwtToken = authService.createToken(found);
+                return done(null, jwtToken);
+            } else {
+                return done('User Not Verified');
+            }
+        }
+        else
+            return done('User Not Registered');
+    })
+}
+
+module.exports = {registerUser, loginUser};

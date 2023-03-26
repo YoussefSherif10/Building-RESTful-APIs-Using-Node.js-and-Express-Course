@@ -8,6 +8,7 @@ function findUser(email, done) {
 
 function registerUser(userDetails, done) {
     users.push(userDetails);
+    fs.writeFileSync('JWT/users/users.json', JSON.stringify(users));
     done(null, userDetails);
 }
 
